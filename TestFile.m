@@ -1,1 +1,4 @@
-disp(1+1)
+c = cool(10);
+surf(peaks);
+colormap(c);
+shading interp;
