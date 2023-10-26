@@ -14,5 +14,9 @@
 
   %%
 
-  robot=KUKA
-robot.TestMoveJoints
+%   robot=KUKA
+r=UR3
+axis equal
+  r.model.teach()
+% robot.TestMoveJoints
+a=T(r.model.fkine(r.model.getpos()))
