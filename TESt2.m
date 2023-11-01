@@ -14,8 +14,8 @@ hold on
 
 
             modelKUKA = KUKA;
-%             modelKUKA.model.base = transl([0.8,0,0.2]);
-%             modelKUKA.model.animate(qrKUKA);
+            modelKUKA.model.base = transl([0.8,0,0.2]);
+            modelKUKA.model.animate(qrKUKA);
             drawnow();
 
             position=modelUR3.model.fkine(UR3q0)
