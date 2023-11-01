@@ -3,7 +3,7 @@ clear
 close all         
 
 % Make, save and plot some robots      
-        qrKUKA = [0	pi/3   0	    pi/4	    0	    5*pi/12   pi 0 0];
+        qrKUKA = [-0.02 0 0	pi/3   0	    pi/4	    0	    5*pi/12   pi 0 0];
        UR3q0 = [0.2427	4.3808	4.6426	-1.194985	-4.71235274267090	-1.30105403435293	5.95508023803729e-06	5.95508307285278e-06	-0.0270717610752961]; % Description
 
 hold on
@@ -14,8 +14,8 @@ hold on
 
 
             modelKUKA = KUKA;
-            modelKUKA.model.base = transl([0.8,0,0.2]);
-            modelKUKA.model.animate(qrKUKA);
+%             modelKUKA.model.base = transl([0.8,0,0.2]);
+%             modelKUKA.model.animate(qrKUKA);
             drawnow();
 
             position=modelUR3.model.fkine(UR3q0)
@@ -42,7 +42,7 @@ PlaceObject('Base2.ply', [0,0,0.5]);
             b=iden*transl(0.143, 0, 0.586)*trotx(pi);
 
 
-            KUKAq2=[-2.6738    5.3639   -1.0478    5.2576    3.9018    1.5458   -3.5082   -0.0000   -0.0000]
+            KUKAq2=[-0.2 0-2.6738    5.3639   -1.0478    5.2576    3.9018    1.5458   -3.5082   -0.0000   -0.0000]
 %             modelKUKA.model.ikcon(b)
 
 
