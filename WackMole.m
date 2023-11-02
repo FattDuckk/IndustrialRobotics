@@ -42,23 +42,21 @@ function WackMole(molePos,modelUR3,Mole)
 
             
 
-%             qmatrix = jtraj(UR3q1,UR3q2,30);          
-%             for robotStepIndex = 1:size(qmatrix,1)
-% 
-%                 modelUR3.model.animate(qmatrix(robotStepIndex,:));
-%                 drawnow;
-% 
-%                 if robotStepIndex>25
-%                     tr=transl(0,0,-(0.003*(robotStepIndex-15)*(1/15)));
-%                     molVertices =get(Mole,'Vertices');
-%     
-%                     transformedMole = [molVertices,ones(size(molVertices,1),1)]*tr';
-%                     set(Mole,'Vertices',transformedMole(:,1:3))   
-%                     
-%                 end
-% 
-% 
-%             end
+            qmatrix = jtraj(UR3q1,UR3q2,30);          
+            for robotStepIndex = 1:size(qmatrix,1)
+
+                modelUR3.model.animate(qmatrix(robotStepIndex,:));
+                drawnow;
+
+                if robotStepIndex>25
+                    tr=transl(0,0,-(0.003*(robotStepIndex-15)*(1/15)));
+                    molVertices =get(Mole,'Vertices');
+    
+                    transformedMole = [molVertices,ones(size(molVertices,1),1)]*tr';
+                    set(Mole,'Vertices',transformedMole(:,1:3))   
+                    
+                end
+            end
 
 %             qmatrix = jtraj(UR3q2,UR3q0,30);          
 %             for robotStepIndex = 1:size(qmatrix,1)

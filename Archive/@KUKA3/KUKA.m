@@ -12,26 +12,13 @@ classdef KUKA< RobotBaseClass
     
     methods
 %% Constructor
-        function self = KUKA(baseTr,useTool,toolFilename)
-            if nargin < 3
-                if nargin == 2
-                    error('If you set useTool you must pass in the toolFilename as well');
-                elseif nargin == 0 % Nothing passed
-                    baseTr = transl(0,0,0);  
-                end             
-            else % All passed in 
-                self.useTool = useTool;
-                toolTrData = load([toolFilename,'.mat']);
-                self.toolTr = toolTrData.tool;
-                self.toolFilename = [toolFilename,'.ply'];
+    function self = KUKA(baseTr)
+        self.CreateModel(); 
+            if nargin < 1			
+				baseTr = eye(4);				
             end
-          
-            self.CreateModel();
-			self.model.base = self.model.base.T * baseTr * trotx(pi/2) * troty(pi/2);
-            self.model.tool = self.toolTr;
-            self.PlotAndColourRobot();
-
-            drawnow
+            self.model.base = self.model.base.T * baseTr *trotx(pi/2) * troty(pi/2);
+            self.PlotAndColourRobot();     
         end
 
 %% CreateModel
@@ -47,10 +34,12 @@ classdef KUKA< RobotBaseClass
             link(9) = Link('d',0.11,'a',0,'alpha',0,'qlim',deg2rad([-360 360]), 'offset',0);
             link(10) = Link('d',0.076466,'a',0,'alpha',0,'qlim',deg2rad([-0.001,0.001]), 'offset', 0);
             link(11) = Link('d',0.03709,'a',-0.1496,'alpha',0,'qlim',deg2rad([-0.001,0.001]), 'offset', 0);
+            link(12) = Link('d',0,'a',0,'alpha',0,'qlim',deg2rad([-360 360]), 'offset', 0);
 
 
-            link(1).qlim = [-0.8 -0.01];
-            link(2).offset = -pi/4;
+            link(1).qlim = [-0.5 -0.01];
+            link(2).qlim = [-160 160];
+            link(2).offset = pi/2;
     
             self.model = SerialLink(link,'name',self.name);
         end      

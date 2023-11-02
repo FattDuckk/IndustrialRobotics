@@ -3,7 +3,7 @@ clear
 close all         
 
 % Make, save and plot some robots      
-        qrKUKA = [-0.02 0 0	pi/3   0	    pi/4	    0	    5*pi/12   pi 0 0];
+        qrKUKA = [-0.4 0 0	pi/3   0	    pi/4	    0	    1.3090   pi 0 0 0];
        UR3q0 = [0.2427	4.3808	4.6426	-1.194985	-4.71235274267090	-1.30105403435293	5.95508023803729e-06	5.95508307285278e-06	-0.0270717610752961]; % Description
 
 hold on
@@ -11,14 +11,29 @@ hold on
             modelUR3.model.base = transl([-0.6,0,0.574]);
             modelUR3.model.animate(UR3q0);
             drawnow();
+% testq= [-0.02 0 0	pi/3   0	    pi/4	    0	    5*pi/12   pi 0 0 0]
 
-
-            modelKUKA = KUKA;
-            modelKUKA.model.base = transl([0.8,0,0.2]);
+            modelKUKA = KUKA(transl([1.3,0,0.5]));
+%             modelKUKA.model.base = transl([0.8,0,0.2]);
             modelKUKA.model.animate(qrKUKA);
             drawnow();
 
             position=modelUR3.model.fkine(UR3q0)
+PlaceObject('Base2.ply', [0,0,0.5]);
+
+%%
+            q2=transl([-0.06 0.06 0.55])*trotx(pi)
+
+            q2=modelKUKA.model.ikcon(q2)
+
+q1=modelKUKA.model.getpos()
+% q1=[   -0.7421   -1.6410   -1.7210    5.5256    0.0002    3.8994    0.3545    6.2832   -0.5750    0.0000    0.0000]
+
+            qmatrix = jtraj(q1,q2,100);          
+            for robotStepIndex = 1:size(qmatrix,1)
+                modelKUKA.model.animate(qmatrix(robotStepIndex,:));
+                drawnow;
+            end        
 %             Mole=PlaceObject('Base2.ply', [0,0,0.5]);
 % 
 % 
@@ -30,7 +45,7 @@ hold on
 %                 set(Mole,'Vertices',transformedMole(:,1:3))   
 %                 pause(1)
 %             end
-PlaceObject('Base2.ply', [0,0,0.5]);
+
 
             campos([-0.0045  -10.5324    6.3959])
             camtarget([0.1088   -0.0471    0.7224])
@@ -46,7 +61,7 @@ PlaceObject('Base2.ply', [0,0,0.5]);
 %             modelKUKA.model.ikcon(b)
 
 
-            KUKAq1=KUKAq2
+%             KUKAq1=KUKAq2
 
 
             KUKAq1(4)=KUKAq1(4)+deg2rad(30);
