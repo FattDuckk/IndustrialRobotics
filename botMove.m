@@ -127,18 +127,19 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
             pause(3)
 
             %MoveBack
-<<<<<<< Updated upstream
             UR3qmatrix = jtraj(UR3q2,UR3q0,20); 
             KUKAqmatrix = jtraj(KUKAq2,KUKAq0,40);
             for robotStepIndex = 1:size(KUKAqmatrix,1)
                 if reset==true
-=======
+                end
+            end
+
             UR3qmatrix = jtraj(UR3q2,UR3q0,30); 
             KUKAqmatrix = jtraj(KUKAq2,KUKAq0,30);
             for robotStepIndex = 1:size(UR3qmatrix,1)
                 iscollision = collisionCheck(UR3qCurrent,KAKUqCurrent,modelUR3,modelKUKA);
                 if reset==true || iscollision == 1
->>>>>>> Stashed changes
+
                     break;
                 end
                 try modelUR3.model.animate(UR3qmatrix(robotStepIndex,:)); end
