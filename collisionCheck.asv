@@ -26,23 +26,12 @@ end
 % tr2 = T(robot2.model.fkine(r2jointpos));
 
 %% Going through each ellipsoid
-for i = 8
+for i = 1: size(tr1,3)-1
     KUKAEpts = [inv(tr1(:,:,i)) * [EptsKUKA,ones(size(EptsKUKA,1),1)]']';
     updatedKUKAPoints = KUKAEpts(:,1:3);
-    algebraicDist = GetAlgebraicDist(updatedKUKAPoints, centerPoint, radii);
-    pointsInside = find(algebraicDist <= 34);
-%     ptcheck = find(algebraicDist<=30)
-    disp(min(algebraicDist))
-    
-%     disp(['2.10: There are ', num2str(size(pointsInside,1)),' points inside the ',num2str(i),'th ellipsoid']);
-    if isempty(pointsInside) == false
-        disp("Collision!")
-        iscollision = 1;
-    else 
-        disp("Safe")
-        iscollision = 0;
-    end
-
+    algebraicDist = GetAlgebraicDist(updatedKUKAPoints, centerPoint, radii(i,:));
+    pointsInside = find(algebraicDist < 1);
+    disp(['2.10: There are ', num2str(size(pointsInside,1)),' points inside the ',num2str(i),'th ellipsoid']);
 end
 
 % 

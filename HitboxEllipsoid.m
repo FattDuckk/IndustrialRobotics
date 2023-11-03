@@ -1,7 +1,5 @@
-function [EptsUR3,EptsKUKA] = HitboxEllipsoid(r1,r2)
+function [EptsUR3,EptsKUKA,radiiUR3EE] = HitboxEllipsoid(r1,r2)
 %% UR3
-clf
-clear
 % r1 = ModifiedUR3;
 
 centerPoint = [0 0 0];
@@ -55,15 +53,14 @@ end
 % end
 % 
 % hold on
-r1.model.plot3d([0,0,0,0,0,0,0,0,0]);
+% r1.model.plot3d([0,0,0,0,0,0,0,0,0]);
 % hold off
 % alpha(0.01)
 axis equal
-camlight
+% camlight
+radiiUR3EE = radiiUR3(8,:);
 
 %% KUKA
-clf
-clear
 % r2 = KUKA;
 % numj = 12;
 centerPoint = [0 0 0];
@@ -118,9 +115,9 @@ end
 EptsKUKA(1:441,1) = X2(:);
 EptsKUKA(1:441,2) = Y2(:);
 EptsKUKA(1:441,3) = Z2(:);
-r2.model.plot3d([-0.01,0,0,0,0,0,0,0,0,0,0,0],'workspace',[-2 2 -2 2 -2 2]);
+% r2.model.plot3d([-0.01,0,0,0,0,0,0,0,0,0,0,0],'workspace',[-2 2 -2 2 -2 2]);
 % alpha(0.1)
 
 axis equal
-camlight
+% camlight
 end
