@@ -1,4 +1,4 @@
-function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield,UR3q0,KUKAq0,UR3Label,KUKALabel)
+function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield,UR3q0,KUKAq0,UR3Label)
 
             global reset
             wacking=false;
@@ -14,10 +14,10 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
             
             UR3q1(4)=UR3q1(4)+deg2rad(30);
 
-            UR3Label.Text=["UR3 Final Joint State", num2str(UR3q2(1:7))];
+            UR3Label.Text=[UR3q2];
 
             if (Wack==Shield)
-                UR3q2(4)=UR3q2(4)+deg2rad(8);
+                UR3q2(4)=UR3q2(4)+deg2rad(7);
                 Winner=2;
             end
 
@@ -34,7 +34,7 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
 
             KUKAq2=modelKUKA.model.ikcon(KUKADestination2);
 
-            KUKALabel.Text=["KUKA Final Joint State", num2str([KUKAq2(1),KUKAq2(3:9)])];
+
             
             %%
 
