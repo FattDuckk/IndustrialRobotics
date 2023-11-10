@@ -30,7 +30,7 @@ for i = 8
     KUKAEpts = [inv(tr1(:,:,i)) * [EptsKUKA,ones(size(EptsKUKA,1),1)]']';
     updatedKUKAPoints = KUKAEpts(:,1:3);
     algebraicDist = GetAlgebraicDist(updatedKUKAPoints, centerPoint, radii);
-    pointsInside = find(algebraicDist <= 34);
+    pointsInside = find(algebraicDist < 33.15);
 %     ptcheck = find(algebraicDist<=30)
     disp(min(algebraicDist))
     

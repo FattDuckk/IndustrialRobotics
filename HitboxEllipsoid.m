@@ -56,7 +56,7 @@ end
 % r1.model.plot3d([0,0,0,0,0,0,0,0,0]);
 % hold off
 % alpha(0.01)
-axis equal
+% axis equal
 % camlight
 radiiUR3EE = radiiUR3(8,:);
 
@@ -64,7 +64,7 @@ radiiUR3EE = radiiUR3(8,:);
 % r2 = KUKA;
 % numj = 12;
 centerPoint = [0 0 0];
-radiiKUKA = [ 0.20799, 0.046, 0.058 ];
+radiiKUKA = [ 0.190799, 0.046, 0.058 ];
 % radii = [0.5,0.216,1.12;
 %             0.217005,0.207952,0.157513;
 %             0.135983,0.250555,0.182625;
@@ -118,6 +118,6 @@ EptsKUKA(1:441,3) = Z2(:);
 % r2.model.plot3d([-0.01,0,0,0,0,0,0,0,0,0,0,0],'workspace',[-2 2 -2 2 -2 2]);
 % alpha(0.1)
 
-axis equal
+% axis equal
 % camlight
 end

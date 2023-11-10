@@ -4,7 +4,14 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
 
             wacking=false;
             Winner=0;
+            iscollision=0;
             collisionMsg = 'Collision Detected: Operation Stopped';
+
+
+            id = 1; % NOTE: may need to change if multiple joysticks present
+
+            joy = vrjoystick(id);
+            joy_info = caps(joy);
 %% UR3
             UR3qCurrent=modelUR3.model.getpos();
 
@@ -53,10 +60,26 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
             [EptsUR3,EptsKUKA,radii] = HitboxEllipsoid(modelUR3,modelKUKA);
             for robotStepIndex = 1:size(UR3qmatrix,1)
                 iscollision = collisionCheck(modelUR3,modelKUKA,EptsUR3,EptsKUKA,radii);
+                    [axes, buttons, povs] = read(joy);
+    if buttons(2)==1
+        eStopFunc(modelUR3,modelKUKA,UR3q0,KUKAq0)
+    end
 
                 if reset==true || iscollision == 1
                     if iscollision == 1
-                        disp(collisionMsg)
+                    popUp=uifigure;
+                    popUp.Position(3:4) = [350 200];
+        
+                    %Message, Title
+                    selection = uiconfirm(popUp,"Program Paused","Collision Detected!","Options",["Reset"],"DefaultOption", 1,"Icon","error");
+                    switch selection
+                        case "Reset"
+                            reset=true;
+                            close(popUp);
+                            resetBots(modelUR3,modelKUKA,UR3q0,KUKAq0);
+                            
+                    end
+                        disp(collisionMsg);
                     end
                     break;
                 end
@@ -100,7 +123,7 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
 
                 if reset==true || iscollision == 1
                     if iscollision == 1
-                        disp(collisionMsg)
+                        disp(collisionMsg);
                     end
                     break;
                 end
@@ -131,7 +154,7 @@ function [Wack,Shield,Winner,mole] = botMove(mole,modelUR3,modelKUKA,Wack,Shield
                 end
             end
 
-            pause(3)
+            pause(2)
 
             %MoveBack
             UR3qmatrix = jtraj(UR3q2,UR3q0,20); 
